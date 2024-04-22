@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .manage-data {
+            text-align: right;
+        }
+        .manage-data button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .manage-data button:hover {
+            background-color: #45a049;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Gym Management System</h1>
+        <div class="manage-data">
+            <button onclick="window.location.href='/members'">Manage Members</button>
+            <button onclick="window.location.href='/coaches'">Manage Coaches</button>
+            <button onclick="window.location.href='/branches'">Manage Branches</button>
+            <button onclick="window.location.href='/nutritionists'">Manage Nutritionists</button>
+            <button onclick="window.location.href='/guests'">Manage Guests</button>
+            <button onclick="window.location.href='/plans'">Manage Plans</button>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>About Us</h2>
+            <p>Provide a brief overview of your gym.</p>
+        </section>
+
+        <section>
+            <h2>Services</h2>
+            <p>Describe the services you offer, such as personal training, group classes, etc.</p>
+        </section>
+
+        <section>
+            <h2>Membership</h2>
+            <p>Highlight your membership plans and their benefits.</p>
+        </section>
+
+        <section>
+            <h2>Contact Us</h2>
+            <p>Provide contact information for inquiries or support.</p>
+        </section>
+
+        <section>
+            <h2>Total Numbers</h2>
+            <ul>
+                {% for key, value in data.items() %}
+                <li>{{ key }}: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gym Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
