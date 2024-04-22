@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Reservation</title>
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Add Reservation</h1>
+    <form action="/add-reservation/{{ member_id }}" method="post">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="member_id"><br><br>
+        <label for="start_date">Start Date:</label>
+        <input type="text" id="start_date" name="start_date"><br><br>
+        <label for="date_time">DateTime:</label>
+        <input type="text" id="date_time" name="date_time"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
