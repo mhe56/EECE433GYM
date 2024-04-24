@@ -7,8 +7,11 @@ def get_members():
     try:
         query = "SELECT * FROM member;"
         data = query_sql(query)
-        print(data)
         return data
-
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL:", error)
+
+def add_member(ID, Email, Age, Name, PhoneNumber, Plan_ID):
+    query = "INSERT INTO member (ID, Email, Age, Name, PhoneNumber, Plan_ID) VALUES (%s, %s, %s, %s, %s, %s)"
+    data = (ID, Email, Age, Name, PhoneNumber, Plan_ID)
+    return query_sql(query, data)

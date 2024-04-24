@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+</head>
+<body>
+    <h1>Add Member</h1>
+    <form action="/add-member" method="POST">
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <label for="Email">Email:</label><br>
+        <input type="email" id="Email" name="Email"><br>
+        <label for="Age">Age:</label><br>
+        <input type="text" id="Age" name="Age"><br>
+        <label for="Name">Name:</label><br>
+        <input type="text" id="Name" name="Name"><br>
+        <label for="PhoneNumber">Phone Number:</label><br>
+        <input type="text" id="PhoneNumber" name="PhoneNumber"><br>
+        <label for="Plan_ID">Plan ID:</label><br>
+        <input type="text" id="Plan_ID" name="Plan_ID"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if success %}
+    <p>{{ success }}</p>
+    {% endif %}
+</body>
+</html>

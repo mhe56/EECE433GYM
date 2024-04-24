@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Plan</title>
+</head>
+<body>
+    <h1>Add Plan</h1>
+    <form action="/add-plans" method="POST">
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <label for="Description">Description:</label><br>
+        <input type="text" id="Description" name="Description"><br>
+        <label for="Calories">Calories:</label><br>
+        <input type="text" id="Calories" name="Calories"><br>
+        <label for="Coach_ID">Coach ID:</label><br>
+        <input type="text" id="Coach_ID" name="Coach_ID"><br>
+        <label for="Nutritionist_ID">Nutritionist ID:</label><br>
+        <input type="text" id="Nutritionist_ID" name="Nutritionist_ID"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if success %}
+    <p style="color: green;">{{ success }}</p>
+    {% endif %}
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

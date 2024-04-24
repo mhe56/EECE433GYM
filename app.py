@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import webbrowser
-from services import gettotalnumbers, getBranches, getMembers, get_reservations
+from services import gettotalnumbers, getBranches, getMembers, get_reservations, getPlans
 app = Flask(__name__)
 db_config = {
     'database': 'Project',
@@ -15,6 +15,26 @@ db_config = {
 def manage_members():
     members = getMembers.get_members()
     return render_template('manage_members.html', members=members)
+
+@app.route('/add-member', methods=['GET','POST'])
+def add_members():
+    if request.method == 'POST':
+        try:
+            ID = request.form['id']
+            Email = request.form['Email']
+            Age = request.form['Age']
+            Name = request.form['Name']
+            PhoneNumber  = request.form['PhoneNumber']
+            Plan_ID = request.form['Plan_ID']
+            if (Plan_ID == ''):
+                Plan_ID = None
+            getMembers.add_member(ID, Email, Age, Name, PhoneNumber, Plan_ID)
+            return render_template('add_member.html', success = 'Successfully inserted')
+        except Exception as e:
+            print(e)
+            return render_template('add_member.html', success = 'Unable to insert')
+    else:
+        return render_template('add_member.html')
 
 @app.route('/add-reservation/<member_id>', methods=['GET', 'POST'])
 def add_reservation(member_id):
@@ -69,7 +89,28 @@ def manage_guests():
 
 @app.route('/plans', methods=['GET'])
 def manage_plans():
-    return render_template('manage_plans.html')
+    data = getPlans.get_plans()
+    return render_template('manage_plans.html', data = data)
+
+@app.route('/add-plans', methods=['GET', 'POST'])
+def add_plans():
+    if request.method == 'POST':
+        try:
+            ID = request.form['id']
+            Description = request.form['Description']
+            Calories = request.form['Calories']
+            if (Calories == ''):
+                Calories = None
+            print(Calories)
+            Coach_ID = request.form['Coach_ID']
+            Nutritionist_ID  = request.form['Nutritionist_ID']
+            getPlans.add_plans(ID, Description, Calories, Coach_ID, Nutritionist_ID)
+            return render_template('add_plans.html', success = 'Successfully inserted')
+        except Exception as e:
+            print(e)
+            return render_template('add_plans.html', success = 'Unable to insert')
+    else:
+        return render_template('add_plans.html')
 
 
 @app.route('/')

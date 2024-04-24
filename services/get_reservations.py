@@ -4,7 +4,7 @@ from helper_functions import query_sql
 import psycopg2
 
 def addReservation(x, y, z):
-    query = "INSERT INTO Member_Reservation (ID, StartDate, DateTime) VALUES (%s, %s, %s)"
+    query = "INSERT INTO Member_Reservation (Member_ID, StartDate, DateTime) VALUES (%s, %s, %s)"
     data = (int(x), y, z)
     return query_sql(query, data)
 

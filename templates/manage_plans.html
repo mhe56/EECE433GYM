@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Plans</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .add-plan-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manage Plans</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Calories</th>
+                <th>Coach ID</th>
+                <th>Nutritionist ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plan in data %}
+            <tr>
+                <td>{{ plan[0] }}</td>
+                <td>{{ plan[1] }}</td>
+                <td>{{ plan[2] }}</td>
+                <td>{{ plan[3] }}</td>
+                <td>{{ plan[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="add-plan-link">
+        <a href="/add-plans">Add a Plan</a>
+    </div>
+</body>
+</html>
