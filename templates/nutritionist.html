@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Gym Database</h1>
+        <nav class="navigation">
+            <a href="/members">Manage Members</a>
+            <a href="/coaches">Manage Coaches</a>
+            <a href="/branches">Manage Branches</a>
+            <a href="/nutritionists">Manage Nutritionists</a>
+            <a href="/guests">Manage Guests</a>
+            <a href="/plans">Manage Plans</a>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>Manage Nutritionists</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Branch ID</th>
+                        <th>Branch Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nutri in data %}
+                    <tr>
+                        <td>{{ nutri[0] }}</td>
+                        <td>{{ nutri[1] }}</td>
+                        <td>{{ nutri[2] }}</td>
+                        <td>{{ nutri[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="button-container">
+                <a href="/nutritionists/add" class="add-button">Add a Nutritionist</a>
+                <a href="/nutritionists/plans" class="add-button"> Popular Nutritionist Plans</a>
+                <a href="/nutritionists/info" class="add-button">Get Nutritionist Info</a>
+            </div>
+    </div>
+</body>
+</html>

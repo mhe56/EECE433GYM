@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coach Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Gym Database</h1>
+        <nav class="navigation">
+            <a href="/members">Manage Members</a>
+            <a href="/coaches">Manage Coaches</a>
+            <a href="/branches">Manage Branches</a>
+            <a href="/nutritionists">Manage Nutritionists</a>
+            <a href="/guests">Manage Guests</a>
+            <a href="/plans">Manage Plans</a>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>Nutritionist Information</h1>
+        <table border="1" cellpadding="15" cellspacing="10">
+            <tr>
+                <td>
+                    <h2>Get Nutritionist Info</h2>
+                    <form action="/nutritionists/info" method="POST">
+                        <label for="nutri_id">Enter a Nutritionist ID:</label><br>
+                        <input type="text" id="nutri_id" name="nutri_id"><br><br>
+                        <input type="submit" value="Submit ID">
+                    </form>
+                </td>
+                <td>
+                    <h2>Nutritionist Info</h2>
+                    <ul>
+                        <li>Nutritionist ID: {{ data[0] }}</li>
+                        <li>Nutritionist Name: {{ data[1] }}</li>
+                        <li>Branch ID: {{ data[2] }}</li>
+                        <li>Number of Plans: {{ data[3] }}</li>
+                        <li>Total Members Appointments: {{ data[4] }}</li>
+                        <li>Total Members Served: {{ data[5] }}</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div class="button-container">
+            <a href="/nutritionists/add" class="add-button">Add a Nutritionist</a>
+            <a href="/nutritionists/plans" class="add-button"> Popular Nutritionist Plans</a>
+            <a href="/nutritionists/info" class="add-button">Get Nutritionist Info</a>
+        </div>
+    </div>
+</body>
+</html>
