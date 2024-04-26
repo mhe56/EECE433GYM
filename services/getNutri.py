@@ -40,10 +40,10 @@ def getNutriPlans():
 
 
 def getNutritionistInfo(ID):
-    Plans = query_sql("SELECT COUNT(*) AS num_plans FROM Plan WHERE Nutritionist_ID = %s;", (ID,))
-    MemberAppts = query_sql("SELECT COUNT(*) AS num_appointments FROM Reserve_Appointment WHERE Nutritionist_ID = %s;", (ID,))
-    MembersServed = query_sql("SELECT COUNT(DISTINCT Member_ID) AS num_members FROM Reserve_Appointment WHERE Nutritionist_ID = %s;", (ID,))
-    Nutr = query_sql("SELECT ID, name, Branch_ID FROM Nutritionist WHERE ID = %s;", (ID,))
+    Plans = query_sql(f"SELECT COUNT(*) AS num_plans FROM Plan WHERE Nutritionist_ID = {ID};")
+    MemberAppts = query_sql(f"SELECT COUNT(*) AS num_appointments FROM Reserve_Appointment WHERE Nutritionist_ID = {ID};")
+    MembersServed = query_sql(f"SELECT COUNT(DISTINCT Member_ID) AS num_members FROM Reserve_Appointment WHERE Nutritionist_ID = {ID};")
+    Nutr = query_sql(f"SELECT ID, name, Branch_ID FROM Nutritionist WHERE ID = {ID};")
     
     # Handle potential None values
     Plans_count = Plans[0][0] if Plans else None
@@ -52,3 +52,9 @@ def getNutritionistInfo(ID):
     Nutr_info = Nutr[0] if Nutr else (None, None, None)  # Assuming columns 1 to 3 contain relevant info
     
     return list(Nutr_info) + [Plans_count, MemberAppts_count, MembersServed_count]
+
+def insert_nutri(id,nm,bid):
+    query = f"INSERT INTO nutritionist (ID, Name, Branch_ID) VALUES ({id}, '{nm}', {bid});"
+    x = query_sql(query, insert=True)
+    print(x)
+    return x

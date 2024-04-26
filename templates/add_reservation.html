@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Reservation</title>
-    <style>
-        /* Add your custom CSS styles here */
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
+    <header>
+        <h1>Gym Database</h1>
+        <nav class="navigation">
+            <a href="/members">Manage Members</a>
+            <a href="/coaches">Manage Coaches</a>
+            <a href="/branches">Manage Branches</a>
+            <a href="/nutritionists">Manage Nutritionists</a>
+            <a href="/guests">Manage Guests</a>
+            <a href="/plans">Manage Plans</a>
+        </nav>
+    </header>
     <h1>Add Reservation</h1>
     <form action="/add-reservation/{{ member_id }}" method="post">
-        <label for="id">ID:</label>
-        <input type="text" id="id" name="member_id"><br><br>
-        <label for="start_date">Start Date:</label>
-        <input type="text" id="start_date" name="start_date"><br><br>
+        <label for="id">ID: {{member_id}}</label>
+        <br>
+        <br>
         <label for="date_time">DateTime:</label>
         <input type="text" id="date_time" name="date_time"><br><br>
         <input type="submit" value="Submit">

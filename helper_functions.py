@@ -6,10 +6,10 @@ db_config = {
     'host': '127.0.0.1',
     'port': '5433'
 }
-def query_sql(sql, params=None):
+def query_sql(sql, params=None, insert=False):
     try:
         conn = psycopg2.connect(database=db_config['database'], user=db_config['user'], password=db_config['password'], host=db_config['host'], port=db_config['port'])
-        if (params):
+        if (params or insert):
             cur = conn.cursor()
             cur.execute(sql, params)
             conn.commit()
@@ -18,7 +18,8 @@ def query_sql(sql, params=None):
             cur = conn.cursor()
             cur.execute(sql)
             rows = cur.fetchall()
+            conn.commit()
             conn.close()
             return rows
-    except (Exception, Error) as error:
+    except Exception as error:
         print("Error while connecting to PostgreSQL:", error)

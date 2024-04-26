@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Guests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Guest Management</h1>
+        <nav class="navigation">
+            <a href="/members">Manage Members</a>
+            <a href="/coaches">Manage Coaches</a>
+            <a href="/branches">Manage Branches</a>
+            <a href="/nutritionists">Manage Nutritionists</a>
+            <a href="/guests">Manage Guests</a>
+            <a href="/plans">Manage Plans</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <h2>Guest List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for guest in guests %}
+                <tr>
+                    <td>{{ guest[0] }}</td>
+                    <td>{{ guest[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="button-container">
+            <a href="/add-guest" class="add-button">Add Guest</a>
+            <a href="/add-guestreservation" class="add-button">Add Guest Reservation</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gym Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Plan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
+    <header>
+        <h1>Gym Database</h1>
+        <nav class="navigation">
+            <a href="/members">Manage Members</a>
+            <a href="/coaches">Manage Coaches</a>
+            <a href="/branches">Manage Branches</a>
+            <a href="/nutritionists">Manage Nutritionists</a>
+            <a href="/guests">Manage Guests</a>
+            <a href="/plans">Manage Plans</a>
+        </nav>
+    </header>
     <h1>Add Plan</h1>
     <form action="/add-plans" method="POST">
         <label for="id">ID:</label><br>

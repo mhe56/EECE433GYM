@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import webbrowser
-from services import gettotalnumbers, getBranches, getMembers, get_reservations, getPlans, getNutri, getCoaches
+from services import gettotalnumbers, getBranches, getMembers, get_reservations, getPlans, getNutri, getCoaches, getGuests
 app = Flask(__name__)
 db_config = {
     'database': 'Project',
@@ -40,13 +40,12 @@ def add_members():
 def add_reservation(member_id):
     if request.method == 'POST':
         try:
-            ID = request.form['id']
-            start_time = request.form['start_time']
+            start_time = get_reservations.start_time(member_id)[0][0]
             date_time = request.form['date_time']
-            get_reservations.addReservation(ID, start_time, date_time)
+            get_reservations.addReservation(member_id, str(start_time), date_time)
             return render_template('add_reservation.html', member_id=member_id)
         except Exception as e:
-            print(e)
+            
             return render_template('add_reservation.html', member_id=member_id)
     else:
         return render_template('add_reservation.html', member_id=member_id)
@@ -78,9 +77,6 @@ def add_branch():
     
 
 
-@app.route('/guests', methods=['GET'])
-def manage_guests():
-    return render_template('manage_guests.html')
 
 @app.route('/plans', methods=['GET'])
 def manage_plans():
@@ -115,12 +111,22 @@ def manage_coaches():
 
 @app.route('/coaches/add', methods=['GET','POST'])
 def add_coaches():
-    data = getCoaches.getCoaches()
-    if request.method == 'GET':
-        return render_template('coach-add.html', data=data)
-    elif request.method == 'POST':
-        Inserts.insert_Coach()
-        return redirect(url_for('add_coaches'))
+    if request.method == 'POST':
+        try:
+            coach_id = request.form['ID']
+            name = request.form['name']
+            branch_id = request.form['Branch_ID']
+            age = request.form['age']
+            years_of_experience = request.form['years']
+
+            getCoaches.insert_Coach(coach_id,name,branch_id,age,years_of_experience) 
+            return redirect('/coaches') 
+            
+        except Exception as e:
+            print(e)
+            return render_template('error.html', error_message="An error occurred. Please try again.")
+    else:
+        return render_template('coach-add.html')
 
 @app.route('/coaches/sorted', methods=['GET','POST'])
 def sorted_coaches():
@@ -162,7 +168,10 @@ def add_nutritionists():
     if request.method == 'GET':
         return render_template('nutritionist-add.html', data=data)
     elif request.method == 'POST':
-        Inserts.insert_Nutritionist()
+        nutri = request.form['ID']
+        name = request.form['name']
+        branch_id = request.form['Branch_ID']
+        getNutri.insert_nutri(nutri, name, branch_id)
         return redirect(url_for('add_nutritionists'))
     
 @app.route('/nutritionists/plans', methods=['GET'])
@@ -180,6 +189,39 @@ def info_nutritionists():
         if data==None:
             data=[]
         return render_template('nutritionist-info.html',data=data)
+
+@app.route('/guests', methods=['GET'])
+def manage_guests():
+    guests = getGuests.get_guests()
+    return render_template('manage_guests.html', guests=guests)
+
+@app.route('/add-guest', methods=['GET','POST'])
+def add_guest():
+    if request.method == 'POST':
+        try:
+            ID = request.form['id']
+            Name = request.form['Name']
+            getGuests.add_guest(ID, Name)
+            return render_template('add_guest.html', success = 'Successfully inserted')
+        except Exception as e:
+            print(e)
+            return render_template('add_guest.html', success = 'Unable to insert')
+    else:
+        return render_template('add_guest.html')
+
+@app.route('/add-guestreservation', methods=['GET', 'POST'])
+def add_gres(guest_id):
+    if request.method == 'POST':
+        try:
+            start_time = get_reservations.start_time(guest_id)[0][0]
+            date_time = request.form['date_time']
+            get_reservations.addReservation(guest_id, str(start_time), date_time)
+            return render_template('guest_reservation.html', guest_id=guest_id)
+        except Exception as e:
+            
+            return render_template('guest_reservation.html', guest_id=guest_id)
+    else:
+        return render_template('guest_reservation.html', guest_id=guest_id)
 
 @app.route('/')
 def main():

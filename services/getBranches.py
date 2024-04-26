@@ -3,7 +3,7 @@ from psycopg2 import Error
 from helper_functions import query_sql
 import psycopg2
 
-def addReservation(x, y):
+def addBranch(x, y):
     query = "INSERT INTO Branch (ID, location) VALUES (%s, %s)"
     data = (int(x), y)
     return query_sql(query, data)

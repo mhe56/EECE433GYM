@@ -65,21 +65,22 @@
             width: 100%;
         }
     </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
-        <h1>Welcome to Our Gym Management System</h1>
-        <div class="manage-data">
-            <button onclick="window.location.href='/members'">Manage Members</button>
-            <button onclick="window.location.href='/coaches'">Manage Coaches</button>
-            <button onclick="window.location.href='/branches'">Manage Branches</button>
-            <button onclick="window.location.href='/nutritionists'">Manage Nutritionists</button>
-            <button onclick="window.location.href='/guests'">Manage Guests</button>
-            <button onclick="window.location.href='/plans'">Manage Plans</button>
-        </div>
+        <h1>Gym Database</h1>
+        <nav class="navigation">
+            <a href="/members">Manage Members</a>
+            <a href="/coaches">Manage Coaches</a>
+            <a href="/branches">Manage Branches</a>
+            <a href="/nutritionists">Manage Nutritionists</a>
+            <a href="/guests">Manage Guests</a>
+            <a href="/plans">Manage Plans</a>
+        </nav>
     </header>
 
-    <main>
+    <main class="content">
         <section>
             <h2>About Us</h2>
             <p>Provide a brief overview of your gym.</p>

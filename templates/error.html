@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Branch</title>
+    <title>Error</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -18,13 +18,11 @@
             <a href="/plans">Manage Plans</a>
         </nav>
     </header>
-    <h1>Add Branch</h1>
-    <form action="/add-branch" method="post">
-        <label for="id">ID:</label>
-        <input type="text" id="id" name="id"><br><br>
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location"><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="content">
+        <h2>An error occurred:</h2>
+        <p>{{ error_message }}</p>
+        <p>Please try again later or contact support.</p>
+        <a href="/">Back to Home</a>
+    </div>
 </body>
 </html>
