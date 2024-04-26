@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Plans</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>Add Guest Reservation</title>
 </head>
 <body>
     <header>
@@ -18,7 +19,6 @@
             <a href="/plans">Manage Plans</a>
         </nav>
     </header>
-    <h1>Manage Plans</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul>
@@ -28,30 +28,13 @@
         </ul>
       {% endif %}
       {% endwith %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th>Calories</th>
-                <th>Coach ID</th>
-                <th>Nutritionist ID</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for plan in data %}
-            <tr>
-                <td>{{ plan[0] }}</td>
-                <td>{{ plan[1] }}</td>
-                <td>{{ plan[2] }}</td>
-                <td>{{ plan[3] }}</td>
-                <td>{{ plan[4] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="add-plan-link">
-        <a href="/add-plans">Add a Plan</a>
-    </div>
+    <form action="/add-guestreservation/{{ guest_id }}" method="post">
+        <label for="id">ID: {{guest_id}}</label>
+        <br>
+        <br>
+        <label for="date_time">DateTime:</label>
+        <input type="text" id="datetime" name="datetime"><br><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>

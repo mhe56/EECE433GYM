@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Plans</title>
+    <title>Add Coach - Gym Management System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -18,8 +18,9 @@
             <a href="/plans">Manage Plans</a>
         </nav>
     </header>
-    <h1>Manage Plans</h1>
-    {% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="content">
+        <h1>Add Member Emergency Contact</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul>
             {% for category, message in messages %}
@@ -28,30 +29,17 @@
         </ul>
       {% endif %}
       {% endwith %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th>Calories</th>
-                <th>Coach ID</th>
-                <th>Nutritionist ID</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for plan in data %}
-            <tr>
-                <td>{{ plan[0] }}</td>
-                <td>{{ plan[1] }}</td>
-                <td>{{ plan[2] }}</td>
-                <td>{{ plan[3] }}</td>
-                <td>{{ plan[4] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="add-plan-link">
-        <a href="/add-plans">Add a Plan</a>
-    </div>
+        <form action="/members/contact" method="POST">
+            <label for="ID">Name:</label>
+            <input type="text" id="ID" name="ID" required><br><br>
+            <label for="name">Member ID:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="rela">Relationship:</label>
+            <input type="text" id="rela" name="rela" required><br><br>
+            <input type="submit" value="Add Dependent">
+        </form>
+        <div class="button-container">
+            
+        </div>
 </body>
 </html>

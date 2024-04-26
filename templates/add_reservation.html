@@ -19,6 +19,15 @@
         </nav>
     </header>
     <h1>Add Reservation</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
     <form action="/add-reservation/{{ member_id }}" method="post">
         <label for="id">ID: {{member_id}}</label>
         <br>

@@ -21,6 +21,15 @@
 
     <main class="content">
         <h2>Add a New Guest</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
         <form action="/add-guest" method="POST">
             <label for="id">ID:</label>
             <input type="text" id="id" name="id" required><br><br>

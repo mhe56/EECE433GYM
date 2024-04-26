@@ -20,6 +20,15 @@
     </header>
 
     <h1>Add Member</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
     <form action="/add-member" method="POST">
         <label for="id">ID:</label><br>
         <input type="text" id="id" name="id"><br>

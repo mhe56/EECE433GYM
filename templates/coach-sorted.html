@@ -27,6 +27,15 @@
         </form>
 
         <h2>Coaches Sorted by Experience</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
         <table>
             <thead>
                 <tr>
@@ -52,6 +61,7 @@
             <a href="/coaches/sorted" class="add-button">Sort By Experience</a>
             <a href="/coaches/plans" class="add-button"> Popular Coach Plans</a>
             <a href="/coaches/info" class="add-button">Get Coach Info</a>
+            <a href="/coaches/dep" class="add-button">Add Dependent</a>
         </div>
     </div>
 </body>

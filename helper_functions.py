@@ -1,10 +1,11 @@
 import psycopg2
+from flask import flash
 db_config = {
     'database': 'Project',
     'user': 'postgres',
-    'password': 'admin1234',
+    'password': '12345678',
     'host': '127.0.0.1',
-    'port': '5433'
+    'port': '5432'
 }
 def query_sql(sql, params=None, insert=False):
     try:
@@ -22,4 +23,4 @@ def query_sql(sql, params=None, insert=False):
             conn.close()
             return rows
     except Exception as error:
-        print("Error while connecting to PostgreSQL:", error)
+         flash("Error executing PostgreSQL query: " + str(error), 'error')

@@ -66,6 +66,15 @@
     </header>
     <div class="container">
         <h1>View Gym Members</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
         <table>
             <thead>
                 <tr>
@@ -93,6 +102,7 @@
             </tbody>
         </table>
         <a href="/add-member" class="add-button">Add Member</a>
+        <a href="/members/contact" class="add-button">Add Emergency Contact</a>
     </div>
 </body>
 </html>

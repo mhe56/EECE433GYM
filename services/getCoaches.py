@@ -62,4 +62,9 @@ def insert_Coach(id,nm,bid,age,yrs):
     print(x)
     return x
 
-print(getCoachInfo(201))
+def insert_dependents(Coach_ID,Name,Relationship):
+    query = f"INSERT INTO Dependents  (Coach_ID , Name, Relationship) VALUES ({Coach_ID}, '{Name}', '{Relationship}');"
+    x = query_sql(query, insert=True)
+    print(x)
+    return x    
+    

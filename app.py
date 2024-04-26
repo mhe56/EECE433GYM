@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, get_flashed_messages
 import psycopg2
 import webbrowser
 from services import gettotalnumbers, getBranches, getMembers, get_reservations, getPlans, getNutri, getCoaches, getGuests
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 db_config = {
     'database': 'Project',
     'user': 'postgres',
@@ -56,6 +57,16 @@ def view_reservations(member_id):
     reservations = get_reservations.get_reservations(member_id)
     return render_template('view_reservations.html', member_id=member_id, reservations=reservations)
 
+@app.route('/members/contact', methods=['GET','POST'])
+def contact():
+    if request.method == 'GET':
+        return render_template('member-contact.html')
+    elif request.method == 'POST':
+        coach_ID = request.form['ID']
+        name = request.form['name']
+        rela = request.form['rela']
+        getMembers.insert_emergency(coach_ID,name,rela)
+        return render_template('member-contact.html')
 
 @app.route('/branches', methods=['GET'])
 def manage_branches():
@@ -118,9 +129,9 @@ def add_coaches():
             branch_id = request.form['Branch_ID']
             age = request.form['age']
             years_of_experience = request.form['years']
-
+            data=getCoaches.getCoaches()
             getCoaches.insert_Coach(coach_id,name,branch_id,age,years_of_experience) 
-            return redirect('/coaches') 
+            return render_template('coach-add.html', data=data) 
             
         except Exception as e:
             print(e)
@@ -155,6 +166,17 @@ def info_coaches():
         if data==None:
             data=[]
         return render_template('coach-info.html',data=data)
+    
+@app.route('/coaches/dep', methods=['GET','POST'])
+def dep_coaches():
+    if request.method == 'GET':
+        return render_template('coach-dep.html')
+    elif request.method == 'POST':
+        coach_ID = request.form['ID']
+        name = request.form['name']
+        rela = request.form['rela']
+        getCoaches.insert_dependents(coach_ID,name,rela)
+        return render_template('coach-dep.html')
 
 
 @app.route('/nutritionists', methods=['GET'])
@@ -209,20 +231,25 @@ def add_guest():
     else:
         return render_template('add_guest.html')
 
-@app.route('/add-guestreservation', methods=['GET', 'POST'])
-def add_gres(guest_id):
+@app.route('/view-gureservations/<guest_id>')
+def view_gureservations(guest_id):
+    reservations = getGuests.get_reservations(guest_id)
+    reservations = [x[0].strftime("%B %d, %Y") for x in reservations]
+    return render_template('view_gureservations.html', guest_id=guest_id, reservations=reservations)
+
+@app.route('/add-guestreservation/<guest_id>', methods=['GET', 'POST'])
+def add_gureservation(guest_id):
     if request.method == 'POST':
         try:
-            start_time = get_reservations.start_time(guest_id)[0][0]
-            date_time = request.form['date_time']
-            get_reservations.addReservation(guest_id, str(start_time), date_time)
-            return render_template('guest_reservation.html', guest_id=guest_id)
+            datetime = request.form['datetime']
+            getGuests.addGUReservation(datetime, guest_id)
+            return render_template('add_gureservation.html', guest_id=guest_id)
         except Exception as e:
             
-            return render_template('guest_reservation.html', guest_id=guest_id)
+            return render_template('add_gureservation.html', guest_id=guest_id)
     else:
-        return render_template('guest_reservation.html', guest_id=guest_id)
-
+        return render_template('add_gureservation.html', guest_id=guest_id)
+    
 @app.route('/')
 def main():
     data = gettotalnumbers.get_total_numbers()
