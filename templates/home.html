@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7;
-            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7; /* Light gray background */
+            color: #333; /* Dark gray text color */
         }
+
         header {
             background-color: #333;
             color: #fff;
@@ -20,56 +25,62 @@
             justify-content: space-between;
             align-items: center;
         }
-        header h1 {
-            margin: 0;
+
+        .navigation a {
+            color: #fff; /* White navigation links */
+            text-decoration: none;
+            margin-right: 10px;
         }
-        .manage-data {
-            text-align: right;
-        }
-        .manage-data button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .manage-data button:hover {
-            background-color: #45a049;
-        }
-        main {
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
             padding: 20px;
         }
-        section {
-            margin-bottom: 30px;
+
+        .left-section,
+        .right-section {
+            flex-basis: 45%; /* Set width for each section */
         }
-        h2 {
-            color: #333;
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            border: 5px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-        ul {
-            list-style: none;
-            padding: 0;
+
+        .thisOne {
+            display:flex;
+            flex-direction: column;
         }
-        li {
-            margin-bottom: 10px;
-        }
+
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 20px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        }
+
+        @media screen and (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                flex-basis: auto;
+                margin-bottom: 20px;
+            }
         }
     </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
-        <h1>Gym Database</h1>
+        <h1 style="font-family: 'Arial Black', sans-serif;">Gym Database</h1>
         <nav class="navigation">
             <a href="/members">Manage Members</a>
             <a href="/coaches">Manage Coaches</a>
@@ -81,38 +92,44 @@
     </header>
 
     <main class="content">
-        <section>
-            <h2>About Us</h2>
-            <p>Provide a brief overview of your gym.</p>
-        </section>
+        <div class="thisOne">
+            <section class="left-section">
+                <h2>About Us</h2>
+                <p>We are a group of AUB students striving to create a functional database for a gym. Our mission is to provide a platform where gym enthusiasts can easily manage their memberships, track their progress, and access personalized training and nutrition plans.</p>
+            </section>
+    
+            <section class="left-section">
+                <h2>Services</h2>
+                <p>Our gym offers a wide range of services to cater to our members' needs. From state-of-the-art workout facilities to personalized training sessions with experienced coaches, we ensure that our members have access to everything they need to achieve their fitness goals.</p>
+            </section>
+    
+            <section class="right-section">
+                <h2>Membership</h2>
+                <p>If you are a member, you can enjoy exclusive benefits such as unlimited access to all our branches, discounts on personal training sessions, and priority booking for group fitness classes.</p>
+            </section>
+        </div>
+        
+        <div class="thisOne">
+            <section class="right-section">
+                <h2>Contact Us</h2>
+                <p>For any inquiries or assistance, feel free to contact us at +961 76 068 079 or email us at info@gymdatabase.com. Our team is always ready to assist you and ensure that you have a seamless experience with our gym management system.</p>
+            </section>
 
-        <section>
-            <h2>Services</h2>
-            <p>Describe the services you offer, such as personal training, group classes, etc.</p>
-        </section>
-
-        <section>
-            <h2>Membership</h2>
-            <p>Highlight your membership plans and their benefits.</p>
-        </section>
-
-        <section>
-            <h2>Contact Us</h2>
-            <p>Provide contact information for inquiries or support.</p>
-        </section>
-
-        <section>
-            <h2>Total Numbers</h2>
-            <ul>
-                {% for key, value in data.items() %}
-                <li>{{ key }}: {{ value }}</li>
-                {% endfor %}
-            </ul>
-        </section>
+            <section class="right-section">
+                <h2>Total Number of:</h2>
+                <ul>
+                    {% for key, value in data.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
     </main>
+    
+    <img src="https://pbs.twimg.com/ext_tw_video_thumb/1243213292354572295/pu/img/lygBzsdw69r62AQw.jpg" alt="AUB Phoenix Logo">
 
     <footer>
-        <p>&copy; 2024 Gym Management System. All rights reserved.</p>
+        <p style="font-family: 'Arial Black', sans-serif;">&copy; 2024 Gym Management System. All rights reserved.</p>
     </footer>
 </body>
 </html>

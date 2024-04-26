@@ -1,0 +1,1 @@
+/add-guestreservation/<guest_id>

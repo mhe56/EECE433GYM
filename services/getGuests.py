@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2 import Error
 from helper_functions import query_sql
 import psycopg2
-
+from flask import flash
 def get_guests():
     try:
         query = "SELECT * FROM guest;"
@@ -27,6 +27,9 @@ def get_reservations(guest_id):
 
 
 def addGUReservation(x, y):
+    if (x[14:] != "00:00"):
+        flash("You can only reserve in 1 hour intervals")
+        return 
     query = f"INSERT INTO Guest_Reservation (Datetime, Guest_ID) VALUES ('{x}',{y});"
     print('iiii')
     print(query)

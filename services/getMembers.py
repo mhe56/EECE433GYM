@@ -21,3 +21,18 @@ def insert_emergency(Coach_ID,Name,Relationship):
     x = query_sql(query, insert=True)
     print(x)
     return x  
+
+def getresday(day):
+    try:
+
+        query = """
+            SELECT *
+            FROM Member_Reservation
+            WHERE DATE(DateTime) = %s
+        """
+        return query_sql(query, day)
+        
+
+    except psycopg2.Error as e:
+        print("Error fetching member reservations:", e)
+        return None

@@ -3,9 +3,9 @@ from flask import flash
 db_config = {
     'database': 'Project',
     'user': 'postgres',
-    'password': '12345678',
+    'password': 'admin1234',
     'host': '127.0.0.1',
-    'port': '5432'
+    'port': '5433'
 }
 def query_sql(sql, params=None, insert=False):
     try:
